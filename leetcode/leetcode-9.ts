@@ -1,19 +1,25 @@
 function isPalindrome(x: number): boolean {
-  if (x < 0) {
+  if (x < 0 || (x !== 0 && x % 10 === 0)) {
     return false;
   }
 
-  const checkIsPalindrome = (palindrome: string): boolean => {
-    for (let i = 0; i < palindrome.length; i++) {
-      if (palindrome[i] !== palindrome[palindrome.length - 1 - i]) {
-        return false;
-      }
+  let reversed = 0;
+  let integer = x;
+
+  while (integer > 0) {
+    reversed += integer % 10;
+    integer = Math.floor(integer / 10);
+
+    if (integer !== 0) {
+      reversed *= 10;
     }
 
-    return true;
-  };
+    if (reversed >= Math.pow(2, 31) - 1) {
+      return false;
+    }
+  }
 
-  return checkIsPalindrome(`${x}`);
+  return reversed === x;
 }
 
 const testCases = [
@@ -28,6 +34,10 @@ const testCases = [
   {
     case: 10,
     expected: false,
+  },
+  {
+    case: 0,
+    expected: true,
   },
 ];
 
