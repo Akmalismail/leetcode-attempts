@@ -1,33 +1,48 @@
 function intToRoman(num: number): string {
-  let result = "";
-  const symValueMap = [
-    { symbol: "M", value: 1000 },
-    { symbol: "CM", value: 900 },
-    { symbol: "D", value: 500 },
-    { symbol: "CD", value: 400 },
-    { symbol: "C", value: 100 },
-    { symbol: "XC", value: 90 },
-    { symbol: "L", value: 50 },
-    { symbol: "XL", value: 40 },
-    { symbol: "X", value: 10 },
-    { symbol: "IX", value: 9 },
-    { symbol: "V", value: 5 },
-    { symbol: "IV", value: 4 },
-    { symbol: "I", value: 1 },
+  const M: string[] = ["", "M", "MM", "MMM"];
+  const C: string[] = [
+    "",
+    "C",
+    "CC",
+    "CCC",
+    "CD",
+    "D",
+    "DC",
+    "DCC",
+    "DCCC",
+    "CM",
+  ];
+  const X: string[] = [
+    "",
+    "X",
+    "XX",
+    "XXX",
+    "XL",
+    "L",
+    "LX",
+    "LXX",
+    "LXXX",
+    "XC",
+  ];
+  const I: string[] = [
+    "",
+    "I",
+    "II",
+    "III",
+    "IV",
+    "V",
+    "VI",
+    "VII",
+    "VIII",
+    "IX",
   ];
 
-  let n = num;
-  let i = 0;
-
-  while (n > 0) {
-    while (n >= symValueMap[i].value) {
-      n = n - symValueMap[i].value;
-      result += symValueMap[i].symbol;
-    }
-    i++;
-  }
-
-  return result;
+  return (
+    M[Math.floor(num / 1000)] +
+    C[Math.floor((num % 1000) / 100)] +
+    X[Math.floor((num % 100) / 10)] +
+    I[Math.floor((num % 10) / 1)]
+  );
 }
 
 const testCases = [
